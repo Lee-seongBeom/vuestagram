@@ -13,7 +13,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt"/>
+  <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt" @write="작성한글 = $event"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -49,6 +49,7 @@ export default {
       카운트: 0,
       tapCnt : 0,
       이미지 : '',
+      작성한글 : '',
     };
   },
   methods: {
@@ -84,11 +85,11 @@ export default {
       let 내게시물 = {
         name: "Kim Hyun",
         userImage: "https://picsum.photos/100?random=3",
-        postImage: "",
+        postImage: this.이미지,
         likes: 36,
         date: "May 15",
         liked: false,
-        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
+        content: this.작성한글,
         filter: "perpetua"
       };
       this.게시물.unshift(내게시물);
