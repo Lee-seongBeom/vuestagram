@@ -4,20 +4,26 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="tapCnt == 1" @click="tapCnt++">Next</li>
+      <li v-if="tapCnt == 2" @click="publish">발행</li>
     </ul>
+
+
+
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :게시물="게시물" :tapCnt="tapCnt"/>
+  <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" multiple type="file" id="file" class="inputfile"/>
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
+
 
   <div v-if="tapCnt == 0">내용0</div>
   <div v-if="tapCnt == 1">내용1</div>
@@ -42,6 +48,7 @@ export default {
       게시물: data,
       카운트: 0,
       tapCnt : 0,
+      이미지 : '',
     };
   },
   methods: {
@@ -60,6 +67,34 @@ export default {
           this.카운트++;
         });
     },
+
+    upload(e){
+      // 이미지 띄우는법
+      // 1. FileReader()
+      // 2. URL.createObjectURL()
+      let 파일 = e.target.files;
+      let url = URL.createObjectURL(파일[0]);
+      console.log(url);
+      console.log(파일[0].type);
+      this.이미지 = url;
+      this.tapCnt++;
+    },
+
+    publish(){
+      let 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: "",
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: "오늘 무엇을 했냐면요 아무것도 안했어요 ?",
+        filter: "perpetua"
+      };
+      this.게시물.unshift(내게시물);
+      this.tapCnt = 0;
+    },
+
   },
 };
 </script>
