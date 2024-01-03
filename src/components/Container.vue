@@ -8,10 +8,18 @@
     <!-- step1 -->
     <!-- 필터선택페이지 -->
     <div v-if="tapCnt == 1">
-      <div class="upload-image" :style="`background-image:url(${이미지})`"></div>
+      <div :class="선택한필터"
+        class="upload-image"
+        :style="`background-image:url(${이미지})`"
+      ></div>
       <div class="filters">
-        <FilterBox :필터="필터" :이미지="이미지" v-for="필터 in 필터들" :key = "필터" >
-          <template v-slot:a> {{필터}}</template>
+        <FilterBox
+          :필터="필터"
+          :이미지="이미지"
+          v-for="필터 in 필터들"
+          :key="필터"
+        >
+          <template v-slot:a> {{ 필터 }}</template>
           <template v-slot:b> 데이터2</template>
         </FilterBox>
       </div>
@@ -20,9 +28,15 @@
     <!-- step2 -->
     <!-- 글작성페이지 -->
     <div v-if="tapCnt == 2">
-      <div class="upload-image" :style="`background-image:url(${이미지})`"></div>
+      <div :class="선택한필터" class="upload-image" :style="`background-image:url(${이미지})`"
+      ></div>
       <div class="write">
-        <textarea class="write-box" @input="$emit('write', $event.target.value)">write!</textarea>
+        <textarea
+          class="write-box"
+          @input="$emit('write', $event.target.value)"
+        >
+write!</textarea
+        >
       </div>
     </div>
   </div>
@@ -33,12 +47,38 @@ import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
 
 export default {
-  data(){
-    return{
-      필터들 :[ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
-      "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
-      "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
-    }
+  data() {
+    return {
+      필터들: [
+        "aden",
+        "_1977",
+        "brannan",
+        "brooklyn",
+        "clarendon",
+        "earlybird",
+        "gingham",
+        "hudson",
+        "inkwell",
+        "kelvin",
+        "lark",
+        "lofi",
+        "maven",
+        "mayfair",
+        "moon",
+        "nashville",
+        "perpetua",
+        "reyes",
+        "rise",
+        "slumber",
+        "stinson",
+        "toaster",
+        "valencia",
+        "walden",
+        "willow",
+        "xpro2", 
+      ],
+      선택한필터 : "",
+    };
   },
   components: {
     Post,
@@ -49,8 +89,11 @@ export default {
     tapCnt: Number,
     이미지: String,
   },
-  methods: {
-    
+  methods: {},
+  mounted() {
+    this.emitter.on("박스클릭함", (a) =>{
+      this.선택한필터 = a;
+    });
   },
 };
 </script>

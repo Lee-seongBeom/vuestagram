@@ -13,6 +13,9 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <h4>안녕 {{ $store.state.name }}</h4>
+  <button @click="$store.state.name = '박'">버튼</button>
+
   <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt" @write="작성한글 = $event"/>
   <button @click="more">더보기</button>
 
@@ -50,6 +53,7 @@ export default {
       tapCnt : 0,
       이미지 : '',
       작성한글 : '',
+      선택한필터 : '',
     };
   },
   methods: {
@@ -75,6 +79,7 @@ export default {
       // 2. URL.createObjectURL()
       let 파일 = e.target.files;
       let url = URL.createObjectURL(파일[0]);
+      console.log(파일);
       console.log(url);
       console.log(파일[0].type);
       this.이미지 = url;
@@ -82,7 +87,7 @@ export default {
     },
 
     publish(){
-      let 내게시물 = {
+      var 내게시물 = {
         name: "Kim Hyun",
         userImage: "https://picsum.photos/100?random=3",
         postImage: this.이미지,
@@ -90,13 +95,20 @@ export default {
         date: "May 15",
         liked: false,
         content: this.작성한글,
-        filter: "perpetua"
+        filter: this.선택한필터,
       };
       this.게시물.unshift(내게시물);
       this.tapCnt = 0;
     },
 
+    
   },
+  mounted() {
+    this.emitter.on("박스클릭함", (a) =>{
+      this.선택한필터 = a;
+    });
+  },
+  
 };
 </script>
 

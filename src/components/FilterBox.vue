@@ -1,19 +1,23 @@
 <template>
-  <div :class="필터 +` filter-item`" :style="`background-image:url(${이미지})`">
+  <div @click="fire" :class="필터 +` filter-item`" :style="`background-image:url(${이미지})`">
     <slot name="a"></slot>
-    <slot name="b"></slot>
+    <!-- <slot name="b"></slot> -->
+    <button @click="fire">버튼</button>
   </div>
 </template>
 
 <script>
 export default {
     name : 'Filterbox',
+    methods: {
+        fire(){
+            this.emitter.emit('박스클릭함', this.필터);
+        },
+         
+    },
     props :{
         이미지 : String,
         필터 : String,
-    },
-    beforeCreate() {
-        console.log(this.필터);
     },
 }
 </script>
