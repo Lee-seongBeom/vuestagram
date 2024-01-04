@@ -14,7 +14,9 @@
   </div>
 
   <h4>안녕 {{ $store.state.name }}</h4>
-  <button @click="$store.state.name = '박'">버튼</button>
+  <button @click="$store.commit('이름변경')">버튼</button>
+  <h4>나이 : {{ $store.state.age }}</h4>
+  <button @click="$store.commit('나이변경', 10)">나이버튼</button>
 
   <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt" @write="작성한글 = $event"/>
   <button @click="more">더보기</button>
@@ -30,8 +32,7 @@
 
   <div v-if="tapCnt == 0">내용0</div>
   <div v-if="tapCnt == 1">내용1</div>
-  <div v-if="tapCnt == 2">내용2</div>
-  <button @click="tapCnt = 0">버튼0</button>
+   <button @click="tapCnt = 0">버튼0</button>
   <button @click="tapCnt = 1">버튼1</button>
   <button @click="tapCnt = 2">버튼2</button>
 </template>
