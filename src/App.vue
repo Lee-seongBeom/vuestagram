@@ -64,7 +64,7 @@ export default {
     return {
       게시물: data,
       카운트: 0,
-      tapCnt : 0,
+      tapCnt : 3,
       이미지 : '',
       작성한글 : '',
       선택한필터 : '',

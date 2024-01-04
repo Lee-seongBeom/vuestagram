@@ -5,6 +5,8 @@
       <Post :게시물="게시물[i]" v-for="(a, i) in 게시물" :key="i" />
     </div>
 
+
+
     <!-- step1 -->
     <!-- 필터선택페이지 -->
     <div v-if="tapCnt == 1">
@@ -25,6 +27,8 @@
       </div>
     </div>
 
+
+
     <!-- step2 -->
     <!-- 글작성페이지 -->
     <div v-if="tapCnt == 2">
@@ -39,12 +43,22 @@ write!</textarea
         >
       </div>
     </div>
+
+    <!-- step3 -->
+    <!-- 마이페이지 -->
+    <div v-if="tapCnt == 3">
+      <MyPage :one ="1"/>
+
+    </div>
+
+
   </div>
 </template>
 
 <script>
 import Post from "./Post.vue";
 import FilterBox from "./FilterBox.vue";
+import MyPage from "./MyPage.vue";
 
 export default {
   data() {
@@ -83,6 +97,7 @@ export default {
   components: {
     Post,
     FilterBox,
+    MyPage,
   },
   props: {
     게시물: Array,
