@@ -15,11 +15,23 @@
 
   <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.commit('이름변경')">버튼</button>
-  <h4>나이 : {{ $store.state.age }}</h4>
+
+  <p>{{ name }} {{ age }} {{ likes }} {{ 내이름 }}</p>
+
+  <button @click="나이변경(10)">나이버튼</button>
+  <!-- <h4>나이 : {{ $store.state.age }}</h4>
   <button @click="$store.commit('나이변경', 10)">나이버튼</button>
+
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기버튼</button> -->
 
   <Container :이미지="이미지" :게시물="게시물" :tapCnt="tapCnt" @write="작성한글 = $event"/>
   <button @click="more">더보기</button>
+
+  <p>{{ now() }} {{ 카운터 }}</p>
+  <button @click="카운터++">methods 버튼</button>
+  <p>{{ now2 }} {{ 카운터 }}</p>
+  <button @click="카운터++">computed 버튼</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -41,6 +53,7 @@
 import Container from "./components/Container.vue";
 import data from "./data/data.js";
 import axios from "axios";
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: "App",
@@ -55,9 +68,28 @@ export default {
       이미지 : '',
       작성한글 : '',
       선택한필터 : '',
+      카운터 : 0,
     };
   },
+  computed :{ // computed 함수는 return 없으면 error
+    now2(){
+      return new Date()
+    },
+    // name(){
+    //   return this.$store.state.name;
+    // },
+    // age(){
+    //   return this.$store.state.age;
+    // },
+    ...mapState(['name', 'age', 'likes']),
+    ...mapState({ 내이름 : 'name', }),
+  },
   methods: {
+    ...mapMutations(['setMore', '좋아요', '나이변경']),
+
+    now(){
+      return new Date()
+    },
     more() {
       // axios.post('url', {name: 'kim'}).then().catch((err)=>{
       //   console.log(err);
